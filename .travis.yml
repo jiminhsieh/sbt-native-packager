@@ -43,10 +43,6 @@ before_install:
       export JAVA_HOME="$JABBA_HOME/jdk/$TRAVIS_JDK" && export PATH="$JAVA_HOME/bin:$PATH" && java -Xmx32m -version;
     fi
 
-before_script:
-- .travis/download-sbt
-- .travis/download-graalvm
-
 # job definitions
 
 jobs:
