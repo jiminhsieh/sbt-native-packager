@@ -17,6 +17,7 @@ cache:
   - $HOME/.ivy2
   - $GRAALVM_PARENT_DIRECTORY
   - $HOME/.jabba
+  - $(brew --cache)
 
 env:
   global:
