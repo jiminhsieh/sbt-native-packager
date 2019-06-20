@@ -6,7 +6,13 @@ Global / scalaVersion := "2.12.7"
 // crossBuildingSettings
 crossSbtVersions := Vector("0.13.17", "1.1.6")
 
-Compile / scalacOptions ++= Seq("-deprecation")
+Compile / scalacOptions ++= {
+  CrossVersion.binaryScalaVersion(scalaVersion.value) match {
+    case "2.12" => Seq("-deprecation", "-Ybackend-parallelism", "2")
+    case _      => Seq("-deprecation")
+  }
+}
+
 javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
 // put jdeb on the classpath for scripted tests
