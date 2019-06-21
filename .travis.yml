@@ -50,37 +50,37 @@ jobs:
   include:
     - stage: validate
       script: sbt "^validate"
-      if: type = pull_request OR (type = push AND branch = master)
+      if: type = pull_request OR (type = push AND branch = testing)
 
     - stage: scripted
       script: sbt "^validateUniversal"
-      if: type = pull_request OR (type = push AND branch = master)
+      if: type = pull_request OR (type = push AND branch = testing)
       name: "scripted universal tests"
     - script: |
         $JABBA_HOME/bin/jabba install graalvm@19.0.0
         export JAVA_HOME="$JABBA_HOME/jdk/graalvm@19.0.0" && export PATH="$JAVA_HOME/bin:$PATH" && java -version
         gu install native-image
         sbt "^validateGraalVMNativeImage"
-      if: type = pull_request OR (type = push AND branch = master)
+      if: type = pull_request OR (type = push AND branch = testing)
       name: "scripted GraalVM native-image tests"
     - script: sbt "^validateJar"
       name: "scripted jar tests"
-      if: type = pull_request OR (type = push AND branch = master)
+      if: type = pull_request OR (type = push AND branch = testing)
     - script: sbt "^validateBash"
       name: "scripted bash tests"
-      if: type = pull_request OR (type = push AND branch = master)
+      if: type = pull_request OR (type = push AND branch = testing)
     - script: sbt "^validateAsh"
       name: "scripted ash tests"
-      if: type = pull_request OR (type = push AND branch = master)
+      if: type = pull_request OR (type = push AND branch = testing)
     - script: sbt "^validateRpm"
       name: "scripted rpm tests"
-      if: type = pull_request OR (type = push AND branch = master)
+      if: type = pull_request OR (type = push AND branch = testing)
     - script: sbt "^validateDebian"
       name: "scripted debian tests"
-      if: type = pull_request OR (type = push AND branch = master)
+      if: type = pull_request OR (type = push AND branch = testing)
     - script: sbt "^validateDockerUnit"
       name: "scripted docker unit-tests"
-      if: type = pull_request OR (type = push AND branch = master)
+      if: type = pull_request OR (type = push AND branch = testing)
       # below will install ZuluFX OpenJFX
     - script: |
           wget https://cdn.azul.com/zulu/bin/zulu8.38.0.13-ca-fx-jdk8.0.212-linux_x64.tar.gz
@@ -88,7 +88,7 @@ jobs:
           rm zulu8.38.0.13-ca-fx-jdk8.0.212-linux_x64.tar.gz
           sbt "^validateJdkPackagerTravis"
       name: "scripted jdk-packager tests"
-      if: type = pull_request OR (type = push AND branch = master)
+      if: type = pull_request OR (type = push AND branch = testing)
       # docker configuration as described in
       # https://docs.travis-ci.com/user/docker/
     - script: |
@@ -96,21 +96,21 @@ jobs:
           export JAVA_HOME="$JABBA_HOME/jdk/zulu@1.11" && export PATH="$JAVA_HOME/bin:$PATH" && java -version
           sbt "^validateJlink"
       name: "scripted jlink tests"
-      if: type = pull_request OR (type = push AND branch = master)
+      if: type = pull_request OR (type = push AND branch = testing)
     - script: |
           $JABBA_HOME/bin/jabba install zulu@1.12
           export JAVA_HOME="$JABBA_HOME/jdk/zulu@1.12" && export PATH="$JAVA_HOME/bin:$PATH" && java -version
           sbt "^validateJlink"
       name: "scripted jlink tests"
-      if: type = pull_request OR (type = push AND branch = master)
+      if: type = pull_request OR (type = push AND branch = testing)
     - script: sbt "^validateDocker"
       name: "scripted docker integration-tests"
-      if: type = pull_request OR (type = push AND branch = master)
+      if: type = pull_request OR (type = push AND branch = testing)
       services: docker
       sudo: required
     - script: sbt "^validateOSX"
       name: "scripted osx tests"
-      if: type = pull_request OR (type = push AND branch = master)
+      if: type = pull_request OR (type = push AND branch = testing)
       os: osx
       osx_image: xcode8
 
