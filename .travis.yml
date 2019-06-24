@@ -1,6 +1,7 @@
 language: scala
 scala: 2.12.7
 os: linux
+dist: xenial
 
 addons:
   apt:
@@ -74,7 +75,7 @@ jobs:
       if: type = pull_request OR (type = push AND branch = master)
     - script: sbt "^validateRpm"
       name: "scripted rpm tests"
-      if: type = pull_request OR (type = push AND branch = master)
+      if: type = pull_request OR (type = push AND branch = travis-error)
     - script: sbt "^validateDebian"
       name: "scripted debian tests"
       if: type = pull_request OR (type = push AND branch = master)
